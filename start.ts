@@ -1,39 +1,9 @@
-import { readLines } from "https://deno.land/std@0.65.0/io/bufio.ts";
-import { EventEmitter } from "https://deno.land/x/mutevents@3.0/mod.ts"
-
 import { WSHandler, WSConnection } from "./saurus/websockets.ts";
+import { Saurus } from "./saurus/saurus.ts";
 import { Server } from "./saurus/server.ts";
+import { Pong } from "./plugins/wspong@1.0.ts";
 
-class Saurus extends EventEmitter<{
-  command: [string]
-}> {
-  server?: Server;
-
-  constructor(
-    readonly handler: WSHandler
-  ) {
-    super()
-
-    handler.on(["accept"], (conn) => this.onaccept(conn))
-    this.on(["command"], (line) => this.oncommand(line))
-
-    this.stdin()
-  }
-
-  private async stdin() {
-    for await (const line of readLines(Deno.stdin))
-      this.emit("command", line)
-  }
-
-  private async onaccept(conn: WSConnection) {
-    this.server = new Server(conn);
-  }
-
-  private async oncommand(line: string) {
-    this.server?.write("command", line)
-  }
-
-}
+const saurus = new Saurus()
 
 const handler = new WSHandler({
   hostname: "sunship.tk",
@@ -42,4 +12,12 @@ const handler = new WSHandler({
   keyFile: "./ssl/privkey.pem"
 })
 
-new Saurus(handler)
+handler.on(["accept"], (conn) => {
+  const server = new Server(conn)
+
+  server.players.on(["join"], (p) => {
+    console.log(`${p.name} joined the game`)
+  })
+
+  new Pong(saurus, server)
+})
