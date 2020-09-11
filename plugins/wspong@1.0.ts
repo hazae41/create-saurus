@@ -1,10 +1,8 @@
 import { Server } from "../saurus/server.ts";
-import { Saurus } from "../saurus/saurus.ts";
 
 // Echo
-export class Pong {
+export class WSPong {
   constructor(
-    readonly saurus: Saurus,
     readonly server: Server
   ) {
     server.on(["message"], this.onmessage.bind(this))
@@ -12,6 +10,6 @@ export class Pong {
 
   private async onmessage(channel: string, data: unknown) {
     if (channel !== "ping") return
-    await this.server.write("pong", data)
+    console.log("Ping!")
   }
 }

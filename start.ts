@@ -1,23 +1,38 @@
-import { WSHandler, WSConnection } from "./saurus/websockets.ts";
-import { Saurus } from "./saurus/saurus.ts";
+import { WSHandler } from "./saurus/websockets.ts";
+import { Console } from "./saurus/console.ts";
 import { Server } from "./saurus/server.ts";
-import { Pong } from "./plugins/wspong@1.0.ts";
 
-const saurus = new Saurus()
+import { WSPong } from "./plugins/wspong@1.0.ts";
+import { JoinTitle } from "./plugins/jointitle@1.0.ts";
+
+console.log("Waiting for server...")
+
+const _password = await Deno.readTextFile("password.txt")
+
+const saurus = new Console()
 
 const handler = new WSHandler({
   hostname: "sunship.tk",
   port: 25564,
-  certFile: "./ssl/fullchain.pem",
-  keyFile: "./ssl/privkey.pem"
+  certFile: "/etc/letsencrypt/live/sunship.tk/fullchain.pem",
+  keyFile: "/etc/letsencrypt/live/sunship.tk/privkey.pem"
 })
 
-handler.on(["accept"], (conn) => {
+handler.on(["accept"], async (conn) => {
+  const password = await conn.read()
+  if (password !== _password) return;
+
   const server = new Server(conn)
+  console.log("Server connected")
 
   server.players.on(["join"], (p) => {
     console.log(`${p.name} joined the game`)
   })
 
-  new Pong(saurus, server)
+  saurus.on(["command"], (line) => {
+    server.execute(line)
+  })
+
+  new JoinTitle(server)
+  new WSPong(server)
 })
