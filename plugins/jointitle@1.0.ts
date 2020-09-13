@@ -1,5 +1,5 @@
-import { Server } from "../saurus/server.ts";
-import { Player } from "../saurus/player.ts";
+import type { Server } from "../saurus/server.ts";
+import type { Player } from "../saurus/player.ts";
 
 export class JoinTitle {
     constructor(

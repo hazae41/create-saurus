@@ -23,8 +23,10 @@ saurus.handler.on(["server"], async (server) => {
   })
 
   // Redirect console commands to the server
-  saurus.console.on(["command"], (line) => {
-    server.execute(line)
+  saurus.console.on(["command"], async (line) => {
+    const [label] = line.split(" ")
+    const done = await server.execute(line)
+    if (!done) console.log("Unknown command:", label)
   })
 
   new JoinTitle(server)
