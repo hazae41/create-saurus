@@ -1,15 +1,18 @@
 import { Server } from "../saurus/server.ts";
+import { WSChannel } from "../saurus/websockets.ts";
 
 // Echo
 export class WSPong {
   constructor(
     readonly server: Server
   ) {
-    server.on(["message"], this.onmessage.bind(this))
+    server.on(["open"], this.onopen.bind(this))
   }
 
-  private async onmessage(channel: string, data: unknown) {
-    if (channel !== "ping") return
-    console.log("Ping!")
+  private async onopen(channel: WSChannel) {
+    const data = await channel.wait() as string
+
+    if (data === "Ping!")
+      console.log("Ping!")
   }
 }
