@@ -13,13 +13,14 @@ const saurus = new Saurus({
 
 saurus.handler.on(["server"], async (server) => {
   console.log("Server connected", server.platform)
-
-  server.on(["close"], () => {
-    console.log("Server disconnected")
-  })
+  server.on(["close"], () => console.log("Server disconnected"))
 
   server.players.on(["join"], (p) => {
     console.log(`${p.name} joined the game`)
+  })
+
+  server.players.on(["quit"], (p) => {
+    console.log(`${p.name} left the game`)
   })
 
   // Redirect console commands to the server
