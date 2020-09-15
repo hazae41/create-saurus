@@ -10,7 +10,7 @@ export class Pinger {
 
   private async onjoin(player: Player) {
     player.on(["app"], (app) => {
-
+      
     })
   }
 }
