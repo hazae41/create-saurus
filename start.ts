@@ -1,6 +1,6 @@
 import { Saurus } from "./saurus/saurus.ts";
 
-import { WSPong } from "./plugins/wspong@1.0.ts";
+import { Pinger } from "./plugins/pinger@1.0.ts"
 import { JoinTitle } from "./plugins/jointitle@1.0.ts";
 
 const saurus = new Saurus({
@@ -31,7 +31,7 @@ saurus.handler.on(["server"], async (server) => {
   })
 
   new JoinTitle(server)
-  new WSPong(server)
+  new Pinger(server)
 })
 
 console.log("Waiting for server...")

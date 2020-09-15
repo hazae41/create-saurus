@@ -1,7 +1,11 @@
-import { App } from "../saurus/app.ts";
-import { Player } from "../saurus/player.ts";
-import { Server } from "../saurus/server.ts";
-import { WSChannel } from "../saurus/websockets.ts";
+import type { App } from "../saurus/app.ts";
+import type { Player } from "../saurus/player.ts";
+import type { Server } from "../saurus/server.ts";
+import type { WSChannel } from "../saurus/websockets.ts";
+
+export interface PingMessage {
+  target: { name: string }
+}
 
 export class Pinger {
   constructor(
@@ -15,9 +19,9 @@ export class Pinger {
   }
 
   private async onapp(player: Player, app: App) {
-    app.channels.on(["ping"], (channel) => {
+    app.channels.on(["ping"], (channel, data) => {
       try {
-        this.onping(player, channel)
+        this.onping(player, channel, data)
       } catch (e) {
         if (e instanceof Error)
           channel.close(e.message)
@@ -25,17 +29,15 @@ export class Pinger {
     })
   }
 
-  private async onping(player: Player, channel: WSChannel) {
-    const method = await channel.wait<string>()
+  private async onping(player: Player, channel: WSChannel, data: unknown) {
+    const { players } = player.server
 
-    if (method === "ping") {
-      const { players } = player.server
+    const msg = data as PingMessage
 
-      const name = await channel.wait<string>()
-      const target = players.names.get(name)
-      if (!target) throw new Error("Invalid name")
+    const name = msg.target.name
+    const target = players.names.get(name)
+    if (!target) throw new Error("Invalid name")
 
-      await target.title("Ping!", `${player.name} pinged you`)
-    }
+    await target.title("Ping!", `${player.name} pinged you`)
   }
 }
