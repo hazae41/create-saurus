@@ -1,13 +1,11 @@
 import type { App } from "../saurus/app.ts";
-import type { Player } from "../saurus/player.ts";
+import type { Player, PlayerInfo, UUID } from "../saurus/player.ts";
 import type { Server } from "../saurus/server.ts";
 import type { WSChannel } from "../saurus/websockets.ts";
 
-export interface PingMessage {
-  target: { name: string }
-}
-
 export class Pinger {
+  uuids = new Map<UUID, boolean>()
+
   constructor(
     readonly server: Server
   ) {
@@ -20,24 +18,40 @@ export class Pinger {
 
   private async onapp(player: Player, app: App) {
     app.channels.on(["ping"], (channel, data) => {
-      try {
-        this.onping(player, channel, data)
-      } catch (e) {
-        if (e instanceof Error)
-          channel.close(e.message)
-      }
+      const { uuid } = data as PlayerInfo
+      this.onping(channel, player, uuid)
+    })
+
+    app.channels.on(["ping.get"], (channel, data) => {
+      const { uuid } = data as PlayerInfo
+      const value = this.uuids.get(uuid);
+      channel.write(value ?? true)
+    })
+
+    app.channels.on(["ping.set"], (_, data) => {
+      const value = data as boolean
+      this.uuids.set(player.uuid, value)
     })
   }
 
-  private async onping(player: Player, channel: WSChannel, data: unknown) {
-    const { players } = player.server
+  private async onping(
+    channel: WSChannel,
+    player: Player,
+    uuid: UUID
+  ) {
+    try {
+      const { players } = player.server
 
-    const msg = data as PingMessage
+      const target = players.uuids.get(uuid)
+      if (!target) throw new Error("Invalid name")
 
-    const name = msg.target.name
-    const target = players.names.get(name)
-    if (!target) throw new Error("Invalid name")
+      const pingable = this.uuids.get(uuid) ?? true;
+      if (!pingable) throw new Error("Not pingable")
 
-    await target.title("Ping!", `${player.name} pinged you`)
+      await target.title("Ping!", `${player.name} pinged you`)
+    } catch (e) {
+      if (e instanceof Error)
+        channel.close(e.message)
+    }
   }
 }
