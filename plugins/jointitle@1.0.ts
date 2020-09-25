@@ -10,10 +10,14 @@ export class JoinTitle {
   constructor(
     readonly server: Server,
   ) {
-    server.players.on(["join"], this.onjoin.bind(this))
+    const offjoin = server.players.on(["join"],
+      this.onjoin.bind(this))
+
+    server.once(["close"], offjoin)
   }
 
   private async onjoin(player: Player) {
-    await player.title(config.title, config.subtitle)
+    const { title, subtitle } = config
+    await player.title(title, subtitle)
   }
 }

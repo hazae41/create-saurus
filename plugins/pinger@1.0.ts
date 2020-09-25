@@ -9,29 +9,38 @@ export class Pinger {
   constructor(
     readonly server: Server
   ) {
-    server.players.on(["join"], this.onjoin.bind(this))
+    const off =
+      server.players.on(["join"], this.onjoin.bind(this))
+
+    server.once(["close"], off)
   }
 
   private async onjoin(player: Player) {
-    player.on(["app"], (app) => this.onapp(player, app))
+    const off =
+      player.on(["app"], (app) => this.onapp(player, app))
+
+    player.once(["quit"], off)
   }
 
   private async onapp(player: Player, app: App) {
-    app.channels.on(["ping"], (channel, data) => {
+    const off1 = app.channels.on(["/ping"], (channel, data) => {
       const { uuid } = data as PlayerInfo
       this.onping(channel, player, uuid)
     })
 
-    app.channels.on(["ping.get"], (channel, data) => {
+    const off2 = app.channels.on(["/ping/get"], (channel, data) => {
       const { uuid } = data as PlayerInfo
-      const value = this.uuids.get(uuid);
-      channel.write(value ?? true)
+      const value = this.uuids.get(uuid) ?? true;
+      channel.close(value)
     })
 
-    app.channels.on(["ping.set"], (_, data) => {
-      const value = data as boolean
-      this.uuids.set(player.uuid, value)
+    const off3 = app.channels.on(["/ping/toggle"], (channel, data) => {
+      const value = this.uuids.get(player.uuid) ?? true
+      this.uuids.set(player.uuid, !value)
+      channel.close(value)
     })
+
+    app.once(["close"], () => { off1(); off2(); off3() })
   }
 
   private async onping(
@@ -49,9 +58,10 @@ export class Pinger {
       if (!pingable) throw new Error("Not pingable")
 
       await target.title("Ping!", `${player.name} pinged you`)
+      await channel.close("Done")
     } catch (e) {
       if (e instanceof Error)
-        channel.close(e.message)
+        await channel.error(e.message)
     }
   }
 }

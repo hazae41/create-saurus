@@ -13,7 +13,6 @@ const saurus = new Saurus({
 
 saurus.handler.on(["server"], async (server) => {
   console.log("Server connected", server.platform)
-  server.on(["close"], () => console.log("Server disconnected"))
 
   server.players.on(["join"], (p) => {
     console.log(`${p.name} joined the game`)
@@ -28,6 +27,10 @@ saurus.handler.on(["server"], async (server) => {
     const [label] = line.split(" ")
     const done = await server.execute(line)
     if (!done) console.log("Unknown command:", label)
+  })
+
+  server.on(["close"], () => {
+    console.log("Server disconnected")
   })
 
   new JoinTitle(server)
