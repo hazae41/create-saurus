@@ -1,7 +1,7 @@
 import type { App } from "../saurus/app.ts";
 import type { Player, PlayerInfo, UUID } from "../saurus/player.ts";
 import type { Server } from "../saurus/server.ts";
-import type { WSChannel } from "../saurus/websockets.ts";
+import type { WSChannel } from "../saurus/websockets/channel.ts";
 
 export class Pinger {
   uuids = new Map<UUID, boolean>()
