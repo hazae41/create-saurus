@@ -1,4 +1,5 @@
 import type { App } from "../saurus/app.ts";
+import { Client } from "../saurus/client.ts";
 import type { Player, PlayerInfo, UUID } from "../saurus/player.ts";
 import type { Server } from "../saurus/server.ts";
 import type { WSChannel } from "../saurus/websockets/channel.ts";
@@ -9,32 +10,39 @@ export class Pinger {
   constructor(
     readonly server: Server
   ) {
-    const off =
-      server.players.on(["join"], this.onjoin.bind(this))
+    const off = server.players.on(["join"],
+      this.onjoin.bind(this))
 
     server.once(["close"], off)
   }
 
   private async onjoin(player: Player) {
-    const off =
-      player.on(["app"], (app) => this.onapp(player, app))
+    const off = player.on(["connect"],
+      (client) => this.onconnect(player, client))
+
+    player.once(["quit"], off)
+  }
+
+  private async onconnect(player: Player, client: Client) {
+    const off = client.on(["app"],
+      (app) => this.onapp(player, app))
 
     player.once(["quit"], off)
   }
 
   private async onapp(player: Player, app: App) {
-    const off1 = app.channels.on(["/ping"], (channel, data) => {
+    const off1 = app.channels.on(["/ping"], ({ channel, data }) => {
       const { uuid } = data as PlayerInfo
       this.onping(channel, player, uuid)
     })
 
-    const off2 = app.channels.on(["/ping/get"], (channel, data) => {
+    const off2 = app.channels.on(["/ping/get"], ({ channel, data }) => {
       const { uuid } = data as PlayerInfo
       const value = this.uuids.get(uuid) ?? true;
       channel.close(value)
     })
 
-    const off3 = app.channels.on(["/ping/toggle"], (channel, data) => {
+    const off3 = app.channels.on(["/ping/toggle"], ({ channel }) => {
       const value = this.uuids.get(player.uuid) ?? true
       this.uuids.set(player.uuid, !value)
       channel.close(value)
@@ -58,7 +66,7 @@ export class Pinger {
       if (!pingable) throw new Error("Not pingable")
 
       await target.title("Ping!", `${player.name} pinged you`)
-      await channel.close("Done")
+      await channel.close()
     } catch (e) {
       if (e instanceof Error)
         await channel.error(e.message)
