@@ -17,10 +17,8 @@ export class Pinger {
   }
 
   private async onjoin(player: Player) {
-    const off = player.on(["connect"],
+    player.once(["connect"],
       (client) => this.onconnect(player, client))
-
-    player.once(["quit"], off)
   }
 
   private async onconnect(player: Player, client: Client) {
