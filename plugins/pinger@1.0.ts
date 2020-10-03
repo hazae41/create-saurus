@@ -1,11 +1,10 @@
 import type { App } from "../saurus/app.ts";
-import { Client } from "../saurus/client.ts";
-import type { Player, PlayerInfo, UUID } from "../saurus/player.ts";
+import type { Player, PlayerInfo } from "../saurus/player.ts";
 import type { Server } from "../saurus/server.ts";
 import type { WSChannel } from "../saurus/websockets/channel.ts";
 
 export class Pinger {
-  uuids = new Map<UUID, boolean>()
+  uuids = new Map<string, boolean>()
 
   constructor(
     readonly server: Server
@@ -17,12 +16,7 @@ export class Pinger {
   }
 
   private async onjoin(player: Player) {
-    player.once(["connect"],
-      (client) => this.onconnect(player, client))
-  }
-
-  private async onconnect(player: Player, client: Client) {
-    const off = client.on(["app"],
+    const off = player.on(["authorize"],
       (app) => this.onapp(player, app))
 
     player.once(["quit"], off)
@@ -52,7 +46,7 @@ export class Pinger {
   private async onping(
     channel: WSChannel,
     player: Player,
-    uuid: UUID
+    uuid: string
   ) {
     try {
       const { players } = player.server
@@ -67,7 +61,7 @@ export class Pinger {
       await channel.close()
     } catch (e) {
       if (e instanceof Error)
-        await channel.error(e.message)
+        await channel.throw(e.message)
     }
   }
 }
