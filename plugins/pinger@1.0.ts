@@ -9,38 +9,42 @@ export class Pinger {
   constructor(
     readonly server: Server
   ) {
-    const off = server.players.on(["join"],
+    const offjoin = server.players.on(["join"],
       this.onjoin.bind(this))
 
-    server.once(["close"], off)
+    server.once(["close"], offjoin)
   }
 
   private async onjoin(player: Player) {
-    const off = player.on(["authorize"],
+    const offauth = player.on(["authorize"],
       (app) => this.onapp(player, app))
 
-    player.once(["quit"], off)
+    const offinfo = player.on(["info"], (info) => {
+      info.pingable = this.uuids.get(player.uuid) ?? true;
+    })
+
+    player.once(["quit"], offauth, offinfo)
   }
 
   private async onapp(player: Player, app: App) {
-    const off1 = app.channels.on(["/ping"], ({ channel, data }) => {
+    const offping = app.channels.on(["/ping"], ({ channel, data }) => {
       const { uuid } = data as PlayerInfo
       this.onping(channel, player, uuid)
     })
 
-    const off2 = app.channels.on(["/ping/get"], ({ channel, data }) => {
+    const offget = app.channels.on(["/ping/get"], ({ channel, data }) => {
       const { uuid } = data as PlayerInfo
       const value = this.uuids.get(uuid) ?? true;
       channel.close(value)
     })
 
-    const off3 = app.channels.on(["/ping/toggle"], ({ channel }) => {
-      const value = this.uuids.get(player.uuid) ?? true
-      this.uuids.set(player.uuid, !value)
-      channel.close(value)
+    const offset = app.channels.on(["/ping/set"], ({ channel, data }) => {
+      const value = data as boolean
+      this.uuids.set(player.uuid, value)
+      channel.close()
     })
 
-    app.once(["close"], () => { off1(); off2(); off3() })
+    app.once(["close"], offping, offget, offset)
   }
 
   private async onping(
