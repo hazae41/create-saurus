@@ -1,3 +1,4 @@
 scripts:
   start: deno run --unstable -A start.ts
+  screen: screen -S saurus vr start
   reload: deno cache --unstable -r start.ts
