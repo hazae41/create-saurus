@@ -3,10 +3,9 @@ import { serveTLS } from "https://deno.land/std@0.65.0/http/server.ts";
 const body = "Hello HTTPS";
 
 const options = {
-  port: 4430,
-  hostname: "sunship.tk",
-  certFile: "/etc/letsencrypt/live/sunship.tk/fullchain.pem",
-  keyFile: "/etc/letsencrypt/live/sunship.tk/privkey.pem",
+  port: 8443,
+  certFile: "./ssl/certificate.pem",
+  keyFile: "./ssl/privatekey.pem",
 };
 
 try {

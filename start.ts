@@ -1,47 +1,35 @@
 import { Saurus } from "./saurus/saurus.ts";
 
-import { Pinger } from "./plugins/pinger@1.0.ts"
+import { TitlePinger } from "./plugins/titlepinger@1.0.ts"
 import { JoinTitle } from "./plugins/jointitle@1.0.ts";
-import type { ListenOptions } from "./saurus/websockets/server.ts";
+import { JoinLog } from "./plugins/joinlog@1.0.ts";
+import { RemoteCMD } from "./plugins/remotecmd@1.0.ts";
+import { ServerWhitelist } from "./plugins/serverwhitelist@1.0.ts";
+import { DeathMsg } from "./plugins/deathmsg@1.0.ts";
 
-const password = await Deno.readTextFile("password.txt")
-
-const options: ListenOptions = {
-  port: 25564,
-  hostname: "sunship.tk",
-  certFile: "/etc/letsencrypt/live/sunship.tk/fullchain.pem",
-  keyFile: "/etc/letsencrypt/live/sunship.tk/privkey.pem",
-}
-
-const saurus = new Saurus(options)
+const saurus = new Saurus({
+  port: 8443,
+  certFile: "./ssl/certificate.pem",
+  keyFile: "./ssl/privatekey.pem",
+})
 
 console.log("Waiting for server...")
 
-saurus.handler.on(["server"], async (server) => {
-  if (server.password !== password)
-    throw new Error("Bad password");
+saurus.on(["server"], (server) => {
+  console.log("Server connected:", server.platform)
 
-  console.log("Server connected", server.platform)
+  server.once(["close"], () =>
+    console.log("Server disconnected"))
 
-  server.players.on(["join"], (p) => {
-    console.log(`${p.name} joined the game`)
+  const offjoin = server.players.on(["join"], (player) => {
+    new DeathMsg(player, "Haha!")
   })
 
-  server.players.on(["quit"], (p) => {
-    console.log(`${p.name} left the game`)
-  })
+  server.once(["close"], offjoin)
 
-  // Redirect console commands to the server
-  saurus.console.on(["command"], async (line) => {
-    const [label] = line.split(" ")
-    const done = await server.execute(line)
-    if (!done) console.log("Unknown command:", label)
-  })
-
-  server.once(["close"], () => {
-    console.log("Server disconnected")
-  })
-
+  new ServerWhitelist(saurus)
+  new JoinLog(server)
   new JoinTitle(server)
-  new Pinger(server)
+  new TitlePinger(server)
+  new RemoteCMD(saurus, server)
 })
