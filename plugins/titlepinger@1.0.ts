@@ -1,20 +1,20 @@
 import type { App } from "../saurus/app.ts";
-import type { ServerPlayer, PlayerInfo } from "../saurus/player.ts";
+import type { Player, PlayerInfo } from "../saurus/player.ts";
 import type { Server } from "../saurus/server.ts";
 import type { Message } from "../saurus/websockets/connection.ts";
 
 export interface Pinger {
   isPingable(player: PlayerInfo): Promise<boolean>
-  ping(player: ServerPlayer, target: ServerPlayer): Promise<void>
+  ping(player: Player, target: Player): Promise<void>
 }
 
-/**
- * Pinger plugin that sends a title when a player is pinged
- * @param server Server to activate the plugin on
- */
 export class TitlePinger implements Pinger {
   uuids = new Map<string, boolean>()
 
+  /**
+   * Pinger plugin that sends a title when a player is pinged.
+   * @param server Server to activate the plugin on
+   */
   constructor(
     readonly server: Server
   ) {
@@ -28,14 +28,14 @@ export class TitlePinger implements Pinger {
     return this.uuids.get(player.uuid) ?? true
   }
 
-  async ping(player: ServerPlayer, target: ServerPlayer) {
+  async ping(player: Player, target: Player) {
     if (!await this.isPingable(target))
       throw new Error("Not pingable")
 
     await target.title("Ping!", `${player.name} pinged you`)
   }
 
-  private async onjoin(player: ServerPlayer) {
+  private async onjoin(player: Player) {
     const offauth = player.on(["authorize"],
       (app) => this.onapp(player, app))
 
@@ -46,7 +46,7 @@ export class TitlePinger implements Pinger {
     player.once(["quit"], offauth, offinfo)
   }
 
-  private async onapp(player: ServerPlayer, app: App) {
+  private async onapp(player: Player, app: App) {
     const offping = app.channels.on(["/ping"],
       (req) => this.onping(player, req))
 
@@ -60,7 +60,7 @@ export class TitlePinger implements Pinger {
   }
 
   private async onping(
-    player: ServerPlayer,
+    player: Player,
     request: Message
   ) {
     const { channel, data } = request as Message<PlayerInfo>
@@ -73,7 +73,7 @@ export class TitlePinger implements Pinger {
   }
 
   private async onget(
-    player: ServerPlayer,
+    player: Player,
     request: Message
   ) {
     const { channel, data } = request as Message<PlayerInfo>
@@ -81,7 +81,7 @@ export class TitlePinger implements Pinger {
   }
 
   private async onset(
-    player: ServerPlayer,
+    player: Player,
     request: Message
   ) {
     const { channel, data } = request as Message<boolean>

@@ -1,4 +1,5 @@
 import { Saurus } from "./saurus/saurus.ts";
+import type { Player } from "./saurus/player.ts";
 
 import { TitlePinger } from "./plugins/titlepinger@1.0.ts"
 import { JoinTitle } from "./plugins/jointitle@1.0.ts";
@@ -6,30 +7,32 @@ import { JoinLog } from "./plugins/joinlog@1.0.ts";
 import { RemoteCMD } from "./plugins/remotecmd@1.0.ts";
 import { ServerWhitelist } from "./plugins/serverwhitelist@1.0.ts";
 import { DeathMsg } from "./plugins/deathmsg@1.0.ts";
+import { ServerLog } from "./plugins/serverlog@1.0.ts";
 
 const saurus = new Saurus({
   port: 8443,
-  certFile: "./ssl/certificate.pem",
-  keyFile: "./ssl/privatekey.pem",
+  certFile: "/etc/letsencrypt/live/sunship.tk/fullchain.pem",
+  keyFile: "/etc/letsencrypt/live/sunship.tk/privkey.pem",
 })
 
-console.log("Waiting for server...")
+console.log("Waiting for servers...")
 
 saurus.on(["server"], (server) => {
-  console.log("Server connected:", server.platform)
+  // Check if server is authorized
+  new ServerWhitelist(server)
+  new ServerLog(server)
 
-  server.once(["close"], () =>
-    console.log("Server disconnected"))
+  if (server.name === "sunship") {
+    new JoinLog(server)
+    new JoinTitle(server)
+    new TitlePinger(server)
+    new RemoteCMD(saurus, server)
 
-  const offjoin = server.players.on(["join"], (player) => {
-    new DeathMsg(player, "Haha!")
-  })
+    function onjoin(player: Player) {
+      new DeathMsg(player, "Haha!")
+    }
 
-  server.once(["close"], offjoin)
-
-  new ServerWhitelist(saurus)
-  new JoinLog(server)
-  new JoinTitle(server)
-  new TitlePinger(server)
-  new RemoteCMD(saurus, server)
+    server.once(["close"],
+      server.players.on(["join"], onjoin))
+  }
 })

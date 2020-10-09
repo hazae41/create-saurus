@@ -4,8 +4,8 @@ const body = "Hello HTTPS";
 
 const options = {
   port: 8443,
-  certFile: "./ssl/certificate.pem",
-  keyFile: "./ssl/privatekey.pem",
+  certFile: "/etc/letsencrypt/live/sunship.tk/fullchain.pem",
+  keyFile: "/etc/letsencrypt/live/sunship.tk/privkey.pem",
 };
 
 try {
