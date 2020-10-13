@@ -11,6 +11,7 @@ import { ServerLog } from "./plugins/serverlog@1.0.ts";
 
 const saurus = new Saurus({
   port: 8443,
+  debug: true,
   certFile: "/etc/letsencrypt/live/sunship.tk/fullchain.pem",
   keyFile: "/etc/letsencrypt/live/sunship.tk/privkey.pem",
 })
@@ -18,7 +19,6 @@ const saurus = new Saurus({
 console.log("Waiting for servers...")
 
 saurus.on(["server"], (server) => {
-  // Check if server is authorized
   new ServerWhitelist(server)
   new ServerLog(server)
 

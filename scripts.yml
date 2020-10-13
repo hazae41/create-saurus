@@ -1,5 +1,5 @@
 scripts:
   start: deno run --unstable -A start.ts
   reload: deno cache --unstable -r start.ts
-  screen: screen -dmS saurus vr start
+  screen: screen -S saurus vr start
   ssltest: deno run -A ssltest.ts

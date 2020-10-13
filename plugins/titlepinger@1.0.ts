@@ -65,7 +65,7 @@ export class TitlePinger implements Pinger {
   ) {
     const { channel, data } = request as Message<PlayerInfo>
 
-    const target = player.server.player(data)
+    const target = player.server.players.get(data)
     if (!target) throw new Error("Invalid target")
 
     await this.ping(player, target)
@@ -77,7 +77,7 @@ export class TitlePinger implements Pinger {
     request: Message
   ) {
     const { channel, data } = request as Message<PlayerInfo>
-    await channel.close(this.isPingable(data))
+    await channel.close(await this.isPingable(data))
   }
 
   private async onset(
