@@ -6,9 +6,11 @@ export class ServerLog {
    * @param server Server you want to activate the plugin on
    */
   constructor(server: Server) {
-    console.log("Server connected:", server.name)
+    console.log(`${server.name} connected`)
 
-    server.once(["close"], () =>
-      console.log("Server disconnected:", server.name))
+    server.once(["close"], (e) => {
+      const reason = e.reason ?? "Unknown reason"
+      console.log(`${server.name} disconnected (${reason})`)
+    })
   }
 }

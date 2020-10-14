@@ -19,6 +19,8 @@ export class RemoteCMD {
   }
 
   private async oncommand(command: string) {
+    console.log("lol")
+
     const [label] = command.split(" ")
     if (label === "exit") Deno.exit()
 

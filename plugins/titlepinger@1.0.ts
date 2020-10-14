@@ -1,5 +1,6 @@
 import type { App } from "../saurus/app.ts";
-import type { Player, PlayerInfo } from "../saurus/player.ts";
+import type { PlayerInfo } from "../saurus/types.ts";
+import type { Player } from "../saurus/player.ts";
 import type { Server } from "../saurus/server.ts";
 import type { Message } from "../saurus/websockets/connection.ts";
 

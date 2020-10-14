@@ -1,5 +1,24 @@
 scripts:
-  start: deno run --unstable -A start.ts
-  reload: deno cache --unstable -r start.ts
-  screen: screen -S saurus vr start
-  ssltest: deno run -A ssltest.ts
+  start: 
+    desc: Start Saurus
+    cmd: deno run --unstable -A start.ts |& tee logs.txt
+
+  reload: 
+    desc: Reload dependencies
+    cmd: deno cache --unstable -r start.ts
+
+  screen: 
+    desc: Start Saurus in a screen session
+    cmd: screen -S saurus vr start
+
+  join: 
+    desc: Open the screen session
+    cmd: screen -x saurus
+
+  show: 
+    desc: Show logs
+    cmd: cat logs.txt
+
+  clear: 
+    desc: Clear logs
+    cmd: rm logs.txt
