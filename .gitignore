@@ -1,5 +1,3 @@
-bungee
-ssl
 logs.txt
 password.txt
-*.sh
+.vscode

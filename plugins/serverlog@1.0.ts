@@ -9,8 +9,7 @@ export class ServerLog {
     console.log(`${server.name} connected`)
 
     server.once(["close"], (e) => {
-      const reason = e.reason ?? "Unknown reason"
-      console.log(`${server.name} disconnected (${reason})`)
+      console.log(`${server.name} disconnected (${e.reason})`)
     })
   }
 }

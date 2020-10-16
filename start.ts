@@ -32,7 +32,7 @@ saurus.on(["server"], (server) => {
     new JoinTitle(server)
     new TitlePinger(server)
 
-    function onjoin(player: Player) {
+    const onjoin = (player: Player) => {
       new DeathMsg(player, "Haha!")
       new TestPlugin(player)
     }
