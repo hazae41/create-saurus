@@ -3,7 +3,7 @@ import type { PlayerInfo } from "../saurus/types.ts";
 import type { Player } from "../saurus/player.ts";
 import type { Server } from "../saurus/server.ts";
 import type { Message } from "../saurus/websockets/connection.ts";
-import { Pinger } from "../saurus/plugins.ts";
+import type { Pinger } from "../saurus/plugins.ts";
 
 export class TitlePinger implements Pinger {
   uuids = new Map<string, boolean>()
@@ -73,12 +73,13 @@ export class TitlePinger implements Pinger {
     player: Player,
     request: Message
   ) {
-    const { channel, data } = request as Message<PlayerInfo>
+    const { channel, data } = request as Message<PlayerInfo | undefined>
 
-    const target = this.server.players.get(data)
+    const target = data ? this.server.players.get(data) : player
     if (!target) throw new Error("Invalid target")
 
-    await channel.close(await this.isPingable(target))
+    const value = await this.isPingable(target)
+    await channel.close(value)
   }
 
   private async onset(
