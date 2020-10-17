@@ -36,7 +36,7 @@ export class TitlePinger implements Pinger {
     const offauth = player.on(["authorize"],
       (app) => this.onapp(player, app))
 
-    const offinfo = player.on(["extras"], (info) => {
+    const offinfo = player.extras.on(["pingable"], (info) => {
       info.pingable = this.uuids.get(player.uuid) ?? true;
     })
 

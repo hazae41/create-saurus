@@ -1,4 +1,3 @@
-import type { Saurus } from "../saurus/saurus.ts";
 import type { Server } from "../saurus/server.ts";
 
 const password = await Deno.readTextFile("password.txt")
