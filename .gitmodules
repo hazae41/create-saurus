@@ -1,0 +1,3 @@
+[submodule "plugins/joinlog"]
+	path = plugins/joinlog
+	url = https://github.com/saurusmc-plugins/joinlog
