@@ -1,4 +1,4 @@
-import type { Server } from "../saurus/server.ts";
+import type { Server } from "saurus/server.ts";
 
 const config = {
   connect: (server: Server) =>

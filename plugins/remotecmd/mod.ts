@@ -1,7 +1,8 @@
-import { Cancelled } from "https://deno.land/x/mutevents/mod.ts"
-import { Help } from "../saurus/console.ts";
-import type { Saurus } from "../saurus/saurus.ts";
-import type { Server } from "../saurus/server.ts";
+import { Cancelled } from "mutevents"
+
+import type { Help } from "saurus/console.ts";
+import type { Saurus } from "saurus/saurus.ts";
+import type { Server } from "saurus/server.ts";
 
 export class RemoteCMD {
   servers = new Map<string, Server>()

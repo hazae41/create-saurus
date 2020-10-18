@@ -1,14 +1,15 @@
-import { Saurus } from "./saurus/saurus.ts";
-import type { Player } from "./saurus/player.ts";
+import { Saurus } from "saurus/saurus.ts";
 
-import { TitlePinger } from "./plugins/TitlePinger@1.0.ts"
-import { JoinTitle } from "./plugins/JoinTitle@1.0.ts";
-import { JoinLog } from "./plugins/JoinLog@1.0.ts";
-import { RemoteCMD } from "./plugins/RemoteCMD@1.0.ts";
-import { ServerWhitelist } from "./plugins/ServerWhitelist@1.0.ts";
-import { PlayerDeathMessage } from "./plugins/DeathMessage@1.0.ts";
-import { ServerLog } from "./plugins/ServerLog@1.0.ts";
-import { SneakyFart } from "./plugins/SneakyFart@1.0.ts";
+import { RemoteCMD } from "./plugins/remotecmd/mod.ts";
+import { ServerWhitelist } from "./plugins/serverwhitelist/mod.ts";
+import { ServerLog } from "./plugins/serverlog/mod.ts";
+import { JoinLog } from "./plugins/joinlog/mod.ts";
+import { JoinTitle } from "./plugins/jointitle/mod.ts";
+import { TitlePinger } from "./plugins/titlepinger/mod.ts";
+import { PlayerDeathMessage } from "./plugins/deathmessage/mod.ts";
+import { SneakyFart } from "./plugins/sneakyfart/mod.ts";
+
+import type { Player } from "saurus/player.ts";
 
 const saurus = new Saurus({
   port: 8443,

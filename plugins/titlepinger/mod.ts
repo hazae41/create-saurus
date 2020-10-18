@@ -1,9 +1,9 @@
-import type { App } from "../saurus/app.ts";
-import type { PlayerInfo } from "../saurus/types.ts";
-import type { Player } from "../saurus/player.ts";
-import type { Server } from "../saurus/server.ts";
-import type { Message } from "../saurus/websockets/connection.ts";
-import type { Pinger } from "../saurus/plugins.ts";
+import type { App } from "saurus/app.ts";
+import type { PlayerInfo } from "saurus/types.ts";
+import type { Player } from "saurus/player.ts";
+import type { Server } from "saurus/server.ts";
+import type { Message } from "saurus/websockets/connection.ts";
+import type { Pinger } from "saurus/plugins.ts";
 
 export class TitlePinger implements Pinger {
   uuids = new Map<string, boolean>()

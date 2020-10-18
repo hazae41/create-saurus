@@ -1,0 +1,10 @@
+{
+  "imports": {
+    "saurus/": "./saurus/",
+    "std/": "https://deno.land/std/",
+    "mutevents": "https://deno.land/x/mutevents/mod.ts",
+    "timeout": "https://deno.land/x/timeout/mod.ts",
+    "abortable": "https://deno.land/x/abortable/mod.ts",
+    "random": "https://deno.land/x/random/Random.js"
+  }
+}

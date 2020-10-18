@@ -1,6 +1,7 @@
-import { EventEmitter } from "https://deno.land/x/mutevents@5.2.2/mod.ts";
-import { Player } from "../saurus/player.ts";
-import { Toggleable, ToggleableEvents } from "../saurus/plugins.ts";
+import { EventEmitter } from "mutevents";
+
+import type { Player } from "saurus/player.ts";
+import type { Toggleable, ToggleableEvents } from "saurus/plugins.ts";
 
 export class SneakyFart extends EventEmitter<ToggleableEvents> {
   private _enabled = false

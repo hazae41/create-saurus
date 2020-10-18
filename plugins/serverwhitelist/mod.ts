@@ -1,6 +1,7 @@
-import type { Server } from "../saurus/server.ts";
+import type { Server } from "saurus/server.ts";
 
-const password = await Deno.readTextFile("password.txt")
+const passwordFile = new URL("password.txt", import.meta.url)
+const password = await Deno.readTextFile(passwordFile)
 
 export class ServerWhitelist {
 

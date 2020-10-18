@@ -1,11 +1,14 @@
 scripts:
   start: 
     desc: Start Saurus
-    cmd: deno run --unstable -A start.ts |& tee logs.txt
+    cmd: deno run --unstable start.ts |& tee logs.txt
+    allow: [net, read, write]
+    imap: imports.json
 
   reload: 
     desc: Reload dependencies
     cmd: deno cache --unstable -r start.ts
+    imap: imports.json
 
   screen: 
     desc: Start Saurus in a screen session

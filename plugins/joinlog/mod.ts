@@ -1,5 +1,5 @@
-import { Player } from "../saurus/player.ts";
-import type { Server } from "../saurus/server.ts";
+import type { Player } from "saurus/player.ts";
+import type { Server } from "saurus/server.ts";
 
 const config = {
   join: (p: Player) => `${p.name} joined the game`,
