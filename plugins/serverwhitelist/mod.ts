@@ -17,10 +17,7 @@ export class ServerWhitelist {
    * @param server Server you want to check
    */
   constructor(readonly server: Server) {
-    if (!password)
-      throw new Error("No password");
-
-    if (server.password !== password)
+    if (!password || server.password !== password)
       throw new Error("Bad password");
   }
 }
