@@ -20,9 +20,11 @@ Connect your Minecraft servers together, make faster-than-light plugins, make se
 
       sudo certbot certonly --manual --preferred-challenges dns
 
-- Clone the repository and its submodules
+- Install Saurus in `<directory>` with Saurus CLI
 
-      git clone --recursive https://github.com/saurusmc/saurus
+  ```
+  saurus create <directory>
+  ```
 
 - Try HTTPS with `ssltest.ts` (modify port and certificates location before)
 
