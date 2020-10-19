@@ -4,10 +4,6 @@ Connect your Minecraft servers together, make faster-than-light plugins, make se
 
 ## Install (Linux)
 
-- Clone the repository and its submodules
-
-      git clone --recursive https://github.com/saurusmc/saurus
-
 - Install [Deno](https://deno.land)
 
       curl -fsSL https://deno.land/x/install/install.sh | sh
@@ -24,6 +20,10 @@ Connect your Minecraft servers together, make faster-than-light plugins, make se
 
       sudo certbot certonly --manual --preferred-challenges dns
 
+- Clone the repository and its submodules
+
+      git clone --recursive https://github.com/saurusmc/saurus
+
 - Try HTTPS with `ssltest.ts` (modify port and certificates location before)
 
       deno run --allow-net ssltest.ts
@@ -34,7 +34,7 @@ Connect your Minecraft servers together, make faster-than-light plugins, make se
   
   - enable/disable plugins
 
-- Start Saurus
+- Start Saurus with Saurus CLI
 
       saurus start
 

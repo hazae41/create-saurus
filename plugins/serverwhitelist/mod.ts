@@ -1,7 +1,13 @@
 import type { Server } from "saurus/server.ts";
 
-const passwordFile = new URL("password.txt", import.meta.url)
-const password = await Deno.readTextFile(passwordFile)
+let password: string;
+
+try {
+  const passwordURL = new URL("password.txt", import.meta.url)
+  password = await Deno.readTextFile(passwordURL)
+} catch (e: unknown) {
+  console.warn("[RemoteCMD] Could not find password.txt")
+}
 
 export class ServerWhitelist {
 
@@ -11,6 +17,9 @@ export class ServerWhitelist {
    * @param server Server you want to check
    */
   constructor(readonly server: Server) {
+    if (!password)
+      throw new Error("No password");
+
     if (server.password !== password)
       throw new Error("Bad password");
   }
