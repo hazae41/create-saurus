@@ -1,10 +1,10 @@
 import { EventEmitter } from "mutevents";
 
 import type { Player } from "saurus/player.ts";
-import type { Toggleable, ToggleableEvents } from "saurus/plugins.ts";
+import type { ToggleableEvents } from "saurus/plugins.ts";
 
 export class SneakyFart extends EventEmitter<ToggleableEvents> {
-  private _enabled = false
+  private enabled = false
 
   /**
    * Example of toggleable player plugin
@@ -14,51 +14,45 @@ export class SneakyFart extends EventEmitter<ToggleableEvents> {
   ) {
     super()
 
-    const offenable = this.on(["enable"],
-      this.onEnable.bind(this))
+    const offFly = player.on(["fly"],
+      this.onFly.bind(this))
 
-    const offdisable = this.on(["disable"],
-      this.onDisable.bind(this))
+    player.once(["quit"],
+      this.disable.bind(this), offFly)
 
-    player.once(["quit"], offenable, offdisable)
-
-    this.enable()
+    this.init()
   }
 
-  get enabled() { return this._enabled }
+  private async init() {
+    if (!await this.player.isFlying())
+      this.enable()
+  }
 
   async enable() {
-    if (this.enabled)
-      throw new Error("Already enabled")
-    this._enabled = true
+    if (this.enabled) return
+    this.enabled = true
+
+    const offsneak = this.player.on(["sneak"],
+      this.onSneak.bind(this))
+
+    this.once(["disable"], offsneak)
+
     await this.emit("enable", undefined)
   }
 
   async disable() {
-    if (!this.enabled)
-      throw new Error("Already disabled")
-    this._enabled = false
+    if (!this.enabled) return
+    this.enabled = false
+
     await this.emit("disable", undefined)
   }
 
-  private async onEnable() {
-    const offsneak = this.player.on(["sneak"],
-      this.onSneak.bind(this))
-
-    const offquit = this.player.once(["quit"],
-      this.disable.bind(this))
-
-    this.once(["disable"], offsneak, offquit)
-
-    console.log("Enabled SneakyFart for", this.player.name)
-  }
-
-  private async onDisable() {
-    console.log("Disabled SneakyFart for", this.player.name)
+  private async onFly(flying: boolean) {
+    if (flying) this.disable()
+    else this.enable()
   }
 
   private async onSneak(sneaking: boolean) {
-    if (await this.player.isFlying()) return;
     if (sneaking) await this.player.msg("Prrr!")
   }
 }
