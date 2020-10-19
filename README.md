@@ -8,6 +8,11 @@ Connect your Minecraft servers together, make faster-than-light plugins, make se
 
       curl -fsSL https://deno.land/x/install/install.sh | sh
 
+- Add Deno to your PATH in your `~/.bashrc` file
+
+      export DENO_INSTALL="~/.deno"
+      export PATH="$DENO_INSTALL/bin:$PATH"
+
 - Install [Saurus CLI](https://github.com/saurusmc/saurus-cli)
 
       deno install -r -fA --unstable -n saurus https://raw.githubusercontent.com/saurusmc/saurus-cli/master/mod.ts
