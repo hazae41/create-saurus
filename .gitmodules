@@ -7,3 +7,6 @@
 [submodule "plugins/titlepinger"]
 	path = plugins/titlepinger
 	url = https://github.com/saurusmc-plugins/titlepinger
+[submodule "plugins/remotecmd"]
+	path = plugins/remotecmd
+	url = https://github.com/saurusmc-plugins/remotecmd
