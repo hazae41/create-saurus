@@ -1,11 +1,10 @@
 import { Saurus } from "saurus/saurus.ts";
 
-import { RemoteCMD } from "./plugins/remotecmd/mod.ts";
+import { RemoteCMD, ServerRemoteCMD } from "./plugins/remotecmd/mod.ts";
 import { ServerWhitelist } from "./plugins/serverwhitelist/mod.ts";
 import { PlayerJoinLog, ServerJoinLog } from "./plugins/joinlog/mod.ts";
 import { JoinTitle } from "./plugins/jointitle/mod.ts";
-import { TitlePinger } from "./plugins/titlepinger/mod.ts";
-import { PlayerDeathMessage } from "./plugins/deathmessage/mod.ts";
+import { PlayerPinger, TitlePinger } from "./plugins/titlepinger/mod.ts";
 import { SneakyFart } from "./plugins/sneakyfart/mod.ts";
 
 import type { Player } from "saurus/player.ts";
@@ -18,19 +17,24 @@ const saurus = new Saurus({
 
 console.log("Waiting for servers...")
 
-const remotecmd = new RemoteCMD(saurus)
+// Global plugins
+const remotecmd =
+  new RemoteCMD(saurus)
+
+const pinger =
+  new TitlePinger()
 
 saurus.on(["server"], (server) => {
+  // Server plugins
   new ServerWhitelist(server)
-  new PlayerJoinLog(server)
   new ServerJoinLog(server)
-  new JoinTitle(server)
-  new TitlePinger(server)
-
-  remotecmd.add(server)
+  new ServerRemoteCMD(remotecmd, server)
 
   const onjoin = (player: Player) => {
-    new PlayerDeathMessage(player)
+    // Player plugins
+    new PlayerPinger(pinger, player)
+    new PlayerJoinLog(player)
+    new JoinTitle(player)
     new SneakyFart(player)
   }
 
