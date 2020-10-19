@@ -8,13 +8,13 @@ Connect your Minecraft servers together, make faster-than-light plugins, make se
 
       git clone --recursive https://github.com/saurusmc/saurus
 
-- Install Deno
+- Install [Deno](https://deno.land)
 
       curl -fsSL https://deno.land/x/install/install.sh | sh
 
-- Install Velociraptor
+- Install [Saurus CLI](https://github.com/saurusmc/saurus-cli)
 
-      deno install -qA -n vr https://deno.land/x/velociraptor/cli.ts
+      deno install -r -fA --unstable -n saurus https://raw.githubusercontent.com/saurusmc/saurus-cli/master/mod.ts
 
 - Install Certbot
 
@@ -32,10 +32,10 @@ Connect your Minecraft servers together, make faster-than-light plugins, make se
 
   - modify port and certificates location
   
-  - add/remove plugins
+  - enable/disable plugins
 
 - Start Saurus
 
-      vr start
+      saurus start
 
 - Install the [Saurus Bukkit plugin](https://github.com/saurusmc/saurus-bukkit) on your Minecraft server and configure it
