@@ -6,7 +6,7 @@ try {
   const passwordURL = new URL("password.txt", import.meta.url)
   password = await Deno.readTextFile(passwordURL)
 } catch (e: unknown) {
-  console.warn("[RemoteCMD] Could not find password.txt")
+  console.warn("RemoteCMD could not find password.txt")
 }
 
 export class ServerWhitelist {
