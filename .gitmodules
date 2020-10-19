@@ -1,3 +1,9 @@
 [submodule "plugins/joinlog"]
 	path = plugins/joinlog
 	url = https://github.com/saurusmc-plugins/joinlog
+[submodule "plugins/titlepinger"]
+	path = plugins/titlepinger
+	url = https://github.com/saurusmc-plugins/titlepinger
+[submodule "plugins/jointitle"]
+	path = plugins/jointitle
+	url = https://github.com/saurusmc-plugins/jointitle
