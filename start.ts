@@ -15,8 +15,9 @@ const saurus = new Saurus({
   keyFile: "/etc/letsencrypt/live/sunship.tk/privkey.pem",
 })
 
-saurus.handler.wsserver.on(["accept"],
-  conn => conn.on(["message"], console.log))
+// Debug messages
+saurus.handler.wsserver.on(["accept", "before"],
+  conn => conn.on(["message", "before"], console.log))
 
 console.log("Waiting for servers...")
 
