@@ -59,7 +59,7 @@ Connect your Minecraft servers together, make faster-than-light plugins, make se
   
   - enable/disable plugins
 
-- Install the [Saurus Bukkit plugin](https://github.com/saurusmc/saurus-bukkit) on your Minecraft server and configure it
+- Install the [Saurus Bukkit plugin](https://github.com/saurusmc/saurus-bukkit) on your Minecraft server(s) and configure it
 
 - Start Saurus with Saurus CLI
 
