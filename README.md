@@ -34,7 +34,6 @@ Connect your Minecraft servers together, make faster-than-light plugins, make se
 - Install Saurus in `<directory>` with Saurus CLI
 
       saurus create <directory>
-  
 
 ### Configure HTTPS (Linux)
 
