@@ -2,24 +2,40 @@
 
 Connect your Minecraft servers together, make faster-than-light plugins, make secure and independant apps.
 
-## Install (Linux)
+## Prerequisite (Linux)
+
+### Curl
+
+    sudo apt install curl
+
+### Git
+
+    sudo apt install git
+
+### Deno
 
 - Install [Deno](https://deno.land)
 
       curl -fsSL https://deno.land/x/install/install.sh | sh
 
-- Add Deno to your PATH in your `~/.bashrc` file
+- Add Deno to your PATH in the `~/.bash_profile` file (create it if it doesn't exist)
 
       export DENO_INSTALL="~/.deno"
       export PATH="$DENO_INSTALL/bin:$PATH"
 
-- Install git
-
-      sudo apt install git
+## Installation
 
 - Install [Saurus CLI](https://github.com/saurusmc/saurus-cli)
 
       deno install -r -fA --unstable -n saurus https://raw.githubusercontent.com/saurusmc/saurus-cli/master/mod.ts
+
+- Install Saurus in `<directory>` with Saurus CLI
+
+  ```
+  saurus create <directory>
+  ```
+
+## Certificates
 
 - Install Certbot
 
@@ -29,15 +45,11 @@ Connect your Minecraft servers together, make faster-than-light plugins, make se
 
       sudo certbot certonly --manual --preferred-challenges dns
 
-- Install Saurus in `<directory>` with Saurus CLI
-
-  ```
-  saurus create <directory>
-  ```
-
 - Try HTTPS with `ssltest.ts` (modify port and certificates location before)
 
       deno run --allow-net ssltest.ts
+
+## Configuration
 
 - Modify the start script at `start.ts`
 
@@ -45,8 +57,8 @@ Connect your Minecraft servers together, make faster-than-light plugins, make se
   
   - enable/disable plugins
 
+- Install the [Saurus Bukkit plugin](https://github.com/saurusmc/saurus-bukkit) on your Minecraft server and configure it
+
 - Start Saurus with Saurus CLI
 
       saurus start
-
-- Install the [Saurus Bukkit plugin](https://github.com/saurusmc/saurus-bukkit) on your Minecraft server and configure it
