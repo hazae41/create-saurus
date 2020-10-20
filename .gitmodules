@@ -10,3 +10,6 @@
 [submodule "plugins/remotecmd"]
 	path = plugins/remotecmd
 	url = https://github.com/saurusmc-plugins/remotecmd
+[submodule "plugins/serverwhitelist"]
+	path = plugins/serverwhitelist
+	url = https://github.com/saurusmc-plugins/serverwhitelist
