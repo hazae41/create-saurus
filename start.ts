@@ -5,7 +5,6 @@ import { ServerWhitelist } from "./plugins/serverwhitelist/mod.ts";
 import { PlayerJoinLog, ServerJoinLog } from "./plugins/joinlog/mod.ts";
 import { JoinTitle } from "./plugins/jointitle/mod.ts";
 import { PlayerPinger, TitlePinger } from "./plugins/titlepinger/mod.ts";
-import { SneakyFart } from "./plugins/sneakyfart/mod.ts";
 
 import type { Player } from "saurus/player.ts";
 
@@ -39,7 +38,6 @@ saurus.on(["server"], (server) => {
     new PlayerPinger(pinger, player)
     new PlayerJoinLog(player)
     new JoinTitle(player)
-    new SneakyFart(player)
   }
 
   server.once(["close"],
