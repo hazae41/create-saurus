@@ -2,17 +2,19 @@
 
 Connect your Minecraft servers together, make faster-than-light plugins, make secure and independant apps.
 
-## Prerequisite (Linux)
+## Installation
 
-### Curl
+### Prerequisite (Linux)
+
+#### Curl
 
     sudo apt install curl
 
-### Git
+#### Git
 
     sudo apt install git
 
-### Deno
+#### Deno
 
 - Install [Deno](https://deno.land)
 
@@ -23,7 +25,7 @@ Connect your Minecraft servers together, make faster-than-light plugins, make se
       export DENO_INSTALL="~/.deno"
       export PATH="$DENO_INSTALL/bin:$PATH"
 
-## Installation
+### Install Saurus
 
 - Install [Saurus CLI](https://github.com/saurusmc/saurus-cli)
 
@@ -35,7 +37,7 @@ Connect your Minecraft servers together, make faster-than-light plugins, make se
   saurus create <directory>
   ```
 
-## Certificates
+### Configure HTTPS (Linux)
 
 - Install Certbot
 
@@ -49,7 +51,7 @@ Connect your Minecraft servers together, make faster-than-light plugins, make se
 
       deno run --allow-net ssltest.ts
 
-## Configuration
+### Configure Saurus
 
 - Modify the start script at `start.ts`
 
