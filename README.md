@@ -13,6 +13,10 @@ Connect your Minecraft servers together, make faster-than-light plugins, make se
       export DENO_INSTALL="~/.deno"
       export PATH="$DENO_INSTALL/bin:$PATH"
 
+- Install git
+
+      sudo apt install git
+
 - Install [Saurus CLI](https://github.com/saurusmc/saurus-cli)
 
       deno install -r -fA --unstable -n saurus https://raw.githubusercontent.com/saurusmc/saurus-cli/master/mod.ts
