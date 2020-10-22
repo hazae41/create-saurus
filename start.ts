@@ -6,7 +6,7 @@ import { PlayerJoinLog, ServerJoinLog } from "./plugins/joinlog/mod.ts";
 import { JoinTitle } from "./plugins/jointitle/mod.ts";
 import { PlayerPinger, TitlePinger } from "./plugins/titlepinger/mod.ts";
 
-import type { Player } from "saurus/player.ts";
+import { JoinEvent } from "./saurus/players.ts";
 
 const saurus = new Saurus({
   port: 8443,
@@ -15,8 +15,8 @@ const saurus = new Saurus({
 })
 
 // Debug messages
-saurus.handler.wsserver.on(["accept", "before"],
-  conn => conn.on(["message", "before"], console.log))
+saurus.handler.wsserver.on(["accept"],
+  conn => conn.on(["message"], console.log))
 
 console.log("Waiting for servers...")
 
@@ -33,7 +33,7 @@ saurus.on(["server"], (server) => {
   new ServerJoinLog(server)
   new ServerRemoteCMD(remotecmd, server)
 
-  const onjoin = (player: Player) => {
+  const onjoin = ({ player }: JoinEvent) => {
     // Player plugins
     new PlayerPinger(pinger, player)
     new PlayerJoinLog(player)
