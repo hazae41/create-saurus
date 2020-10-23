@@ -1,4 +1,4 @@
-import { serveTLS } from "https://deno.land/std@0.65.0/http/server.ts";
+import { serveTLS } from "https://deno.land/std/http/server.ts";
 
 const port = 8443
 
