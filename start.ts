@@ -1,12 +1,11 @@
 import { Saurus } from "saurus/saurus.ts";
+import { JoinEvent } from "saurus/players.ts"
 
 import { RemoteCMD, ServerRemoteCMD } from "./plugins/remotecmd/mod.ts";
 import { ServerWhitelist } from "./plugins/serverwhitelist/mod.ts";
 import { PlayerJoinLog, ServerJoinLog } from "./plugins/joinlog/mod.ts";
 import { JoinTitle } from "./plugins/jointitle/mod.ts";
 import { PlayerPinger, TitlePinger } from "./plugins/titlepinger/mod.ts";
-
-import { JoinEvent } from "./saurus/players.ts";
 
 const saurus = new Saurus({
   port: 8443,

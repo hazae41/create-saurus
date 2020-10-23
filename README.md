@@ -49,6 +49,24 @@ Connect your Minecraft servers together, make faster-than-light plugins, make se
 
       deno run --allow-net ssltest.ts
 
+### Configure VSCode
+
+- Install [VSCode](https://code.visualstudio.com/)
+
+- Open your folder locally or remotely using SSH
+
+- Download [VSCode-Deno](https://marketplace.visualstudio.com/items?itemName=denoland.vscode-deno)
+
+  ![](https://i.gyazo.com/9e2f529a5f1f57cb3dca1a981c4cf2f3.png)
+
+- Click the settings icon, choose `Install Another Version` and choose **1.26.0**
+
+- Click the settings icon, choose `Extension Settings`, then select the tab `Workspace`
+
+- Activate `Enable`, `Unstable`, `Always Show Status`, `Enable Formatter`
+
+- On `Importmap` click on `Edit in settings.json`, then enter `imports.json`
+
 ### Configure Saurus
 
 - Modify the start script at `start.ts`
@@ -62,3 +80,4 @@ Connect your Minecraft servers together, make faster-than-light plugins, make se
 - Start Saurus with Saurus CLI
 
       saurus start
+

@@ -1,6 +1,6 @@
 {
   "imports": {
-    "saurus/": "./saurus/",
+    "saurus/": "https://raw.githubusercontent.com/saurusmc/saurus/master/saurus/",
     "std/": "https://deno.land/std/",
     "mutevents/": "https://deno.land/x/mutevents/",
     "timeout/": "https://deno.land/x/timeout/",
