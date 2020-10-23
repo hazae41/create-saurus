@@ -15,8 +15,8 @@ const saurus = new Saurus({
 })
 
 // Debug messages
-saurus.handler.wsserver.on(["accept"],
-  conn => conn.on(["message"], console.log))
+saurus.handler.wsserver.on(["accept", "before"],
+  conn => conn.on(["message", "before"], console.log))
 
 console.log("Waiting for servers...")
 
