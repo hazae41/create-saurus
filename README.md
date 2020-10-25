@@ -4,7 +4,7 @@ Connect your Minecraft servers together, make faster-than-light plugins, make se
 
 ## Installation
 
-- [Prerequisite (Linux)](https://github.com/saurusmc/create-saurus/wiki/Prerequisite-(Linux))
+- [Prerequisite](https://github.com/saurusmc/create-saurus/wiki/Prerequisite)
 
 - [Installing Saurus](https://github.com/saurusmc/create-saurus/wiki/Installing-Saurus)
 
