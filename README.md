@@ -8,7 +8,7 @@ Connect your Minecraft servers together, make faster-than-light plugins, make se
 
 - [Installing Saurus](https://github.com/saurusmc/create-saurus/wiki/Installing-Saurus)
 
-- [Configuring HTTPS (Linux)](https://github.com/saurusmc/create-saurus/wiki/Configuring-HTTPS-(Linux))
+- [Configuring HTTPS](https://github.com/saurusmc/create-saurus/wiki/Configuring-HTTPS)
 
 - [Configuring VSCode](https://github.com/saurusmc/create-saurus/wiki/Configuring-VSCode)
 
