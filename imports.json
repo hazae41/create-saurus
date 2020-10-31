@@ -1,10 +1,5 @@
 {
   "imports": {
-    "saurus/": "https://raw.githubusercontent.com/saurusmc/saurus/master/src/",
-    "std/": "https://deno.land/std/",
-    "mutevents/": "https://deno.land/x/mutevents/",
-    "timeout/": "https://deno.land/x/timeout/",
-    "abortable/": "https://deno.land/x/abortable/",
-    "random/": "https://deno.land/x/random/"
+    "saurus/": "https://raw.githubusercontent.com/saurusmc/saurus/master/"
   }
 }

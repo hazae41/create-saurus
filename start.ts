@@ -1,5 +1,5 @@
-import { Saurus } from "saurus/saurus.ts";
-import { JoinEvent } from "saurus/players.ts"
+import { Saurus } from "saurus/src/saurus.ts";
+import { JoinEvent } from "saurus/src/players.ts"
 
 import { RemoteCMD, ServerRemoteCMD } from "./plugins/remotecmd/mod.ts";
 import { ServerWhitelist } from "./plugins/serverwhitelist/mod.ts";
