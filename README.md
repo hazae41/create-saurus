@@ -4,7 +4,7 @@ Connect your Minecraft servers together, make faster-than-light plugins, make se
 
 ## Try it
 
-### SaurusMC
+### Sunship.tk
 
 - Connect to `mc.sunship.tk`
 - Visit https://pinger.sunship.tk/
