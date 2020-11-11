@@ -2,6 +2,13 @@
 
 Connect your Minecraft servers together, make faster-than-light plugins, make secure and independant apps.
 
+## Try it
+
+### SaurusMC
+
+- Connect to `mc.sunship.tk`
+- Visit https://pinger.sunship.tk/
+
 ## Installation
 
 - [Prerequisite](https://github.com/saurusmc/create-saurus/wiki/Prerequisite)
