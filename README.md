@@ -8,6 +8,7 @@ Connect your Minecraft servers together, make faster-than-light plugins, make se
 
 - Connect to `mc.sunship.tk`
 - Visit https://pinger.sunship.tk/
+- Type your code in the chat `/! authorize <code>`
 
 ## Installation
 
