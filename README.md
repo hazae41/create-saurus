@@ -1,6 +1,6 @@
 # Saurus
 
-Connect your Minecraft servers together, make faster-than-light plugins, make secure and independant apps.
+`Connect your Minecraft servers together without proxy, make faster-than-light plugins, make secure and independant apps.`
 
 ## Try it
 
