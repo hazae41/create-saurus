@@ -4,10 +4,10 @@
 
 ## Try it
 
-### Sunship International Server
+### Saurus International Server
 
-- Connect to `mc.sunship.tk`
-- Visit https://pinger.sunship.tk/
+- Connect to `play.saurusmc.org`
+- Visit https://pinger.saurusmc.org/
 - Type your code in the chat `/! authorize <code>`
 
 ## Installation
