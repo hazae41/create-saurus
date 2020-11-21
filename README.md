@@ -50,3 +50,7 @@ All plugins are verified before being published on the website, and they are all
 It has better security standards, and aims to standardize protocols and plugins.
 
 Saurus is revolutionary for server admins, from small server admins to large network admins.
+
+### How to make plugins?
+
+You can follow the tutorial for making a plugin [here](https://github.com/saurusmc/create-saurus/wiki/Making-a-plugin)
