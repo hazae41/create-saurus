@@ -2,11 +2,15 @@
 
 > Connect your Minecraft servers together without proxy, make faster-than-light plugins, make secure and independant apps.
 
+Saurus is a WebSocket server. Using plugins, it allows you to both:
+- Connect and manage your Minecraft servers programmatically
+- Connect apps that will interact with your Minecraft servers and players
+
 ## Try it
 
 ### Saurus International Server
 
-- Connect to `play.saurusmc.org`
+- Connect to `saurusmc.org` on Minecraft
 - Visit https://pinger.saurusmc.org/
 - Type your code in the chat `/! authorize <code>`
 
