@@ -9,8 +9,8 @@ import { PlayerPinger, TitlePinger } from "./plugins/titlepinger/mod.ts";
 
 const saurus = new Saurus({
   port: 8443,
-  certFile: "/etc/letsencrypt/live/sunship.tk/fullchain.pem",
-  keyFile: "/etc/letsencrypt/live/sunship.tk/privkey.pem",
+  certFile: "./ssl/fullchain.pem",
+  keyFile: "./ssl/privkey.pem",
 })
 
 // Debug messages

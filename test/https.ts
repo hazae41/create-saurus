@@ -4,8 +4,8 @@ const port = 8443
 
 const server = serveTLS({
   port: port,
-  certFile: "/etc/letsencrypt/live/sunship.tk/fullchain.pem",
-  keyFile: "/etc/letsencrypt/live/sunship.tk/privkey.pem",
+  certFile: "../ssl/fullchain.pem",
+  keyFile: "../ssl/privkey.pem",
 })
 
 console.log(`Connect to https://<hostname>:${port}/ ("https" not "http")`)
