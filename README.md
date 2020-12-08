@@ -10,7 +10,7 @@ Saurus is a WebSocket server. Using plugins, it allows you to both:
 
 ### Saurus International Server
 
-- Connect to `saurusmc.org` on Minecraft
+![](http://status.mclive.eu/saurusmc.org/saurusmc.org/25565/banner.png)
 - Visit https://pinger.saurusmc.org/
 - Type your code in the chat `/! authorize <code>`
 
